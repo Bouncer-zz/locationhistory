@@ -3,22 +3,22 @@ import csv
 import os
 
 # where is your locationhistory.json file located?
-fname = '\path\to\locationhistory.json'
+fname = 'path/to/locationhistory.json'
 
 # read json file
-print 'reading file'
+print('reading file')
 file = open(fname, "r")
 content = file.read()
 file.close()
 
 # read json
-print 'loading json'
+print('loading json')
 data = json.loads(content)
 
 # create file
-print 'creating csv'
+print('creating csv')
 fieldnames = ["Geometry"]
-w = open('history.csv', 'wb')
+w = open('history.csv', 'w')
 wr = csv.writer(w, delimiter=',')
 wr.writerow(fieldnames)
 
@@ -26,7 +26,7 @@ output = ""
 outputCount = 0
 count = len(data['locations'])
 
-for c in xrange(0,count):
+for c in range(0,count):
 
 	# convert current location
 	lon = float(data['locations'][c]['longitudeE7']) / 10000000
@@ -51,12 +51,12 @@ for c in xrange(0,count):
 			wr.writerow(['<LineString><coordinates>' + output + '</LineString></coordinates>'])
 			output = ""
 			outputCount = 0
-			print 'progress: ' + str(c) + '/' + str(count)
+			print('progress: ' + str(c) + '/' + str(count))
 		else:
 			output = ""
 			outputCount = 0
-			print 'skipped coordinate: ' + str(lon) + ', ' + str(lat)
+			print('skipped coordinate: ' + str(lon) + ', ' + str(lat))
 
 
 w.close()
-print 'finished'
+print('finished')
